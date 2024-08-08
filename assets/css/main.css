@@ -13,8 +13,8 @@ pre, a, abbr, acronym, address, big, cite,
 code, del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var, b,
 u, i, center, dl, dt, dd, ol, ul, li, fieldset,
-form, label, legend, table, caption, tbody,
-tfoot, thead, tr, th, td, article, aside,
+form, label, legend, caption,
+tfoot, article, aside,
 canvas, details, embed, figure, figcaption,
 footer, header, hgroup, menu, nav, output, ruby,
 section, summary, time, mark, audio, video {
@@ -1377,7 +1377,7 @@ input, select, textarea {
 	}
 
 /* Tables */
-
+/* 
 	table {
 		width: 100%;
 	}
@@ -1412,7 +1412,7 @@ input, select, textarea {
 				background: #404248;
 				color: #fff;
 			}
-
+*/
 /* Image */
 
 	.image {
@@ -1497,6 +1497,7 @@ input, select, textarea {
 		border: 0;
 		white-space: nowrap;
 		cursor: pointer;
+		margin-bottom: 2em;
 	}
 
 		input[type="button"].icon:before,
@@ -2086,6 +2087,9 @@ input, select, textarea {
 					width: 100%;
 					margin: 0 0 2em 0;
 				}
+		.button{
+			margin-bottom: 2em;
+		}		
 
 	}
 
@@ -2340,6 +2344,10 @@ input, select, textarea {
 				margin-top: 1em;
 			}
 
+			.button{
+				margin-bottom: 2em;
+			}
+
 	}
 
 /* Small */
@@ -2382,6 +2390,7 @@ input, select, textarea {
 				text-align: center;
 				padding: 1em 0 1em 0;
 				border-radius: 8px;
+				margin-bottom: 1em;
 			}
 
 		/* List */
@@ -2405,12 +2414,19 @@ input, select, textarea {
 
 		/* Box */
 
+			.container-excerpt{
+				display: flex; 
+				flex-direction: column;
+				justify-content: center;
+			}
+
 			.box.excerpt .image-left {
-				margin-right: 0;
+				/*margin-right: 0;*/
+				margin: auto;
 			}
 
 			.box.excerpt header {
-				margin-left: 32%;
+				text-align: center;
 			}
 
 			.box.excerpt p {
@@ -2466,10 +2482,25 @@ input, select, textarea {
 				padding: 3em 0 1em 0;
 			}
 
+		/* Image */
+		
+		.imageservice {
+			display: block;
+			border-radius: 5%;
+			text-align: center;
+		}	
+
 	}
 
-.myimageindex {
+.myimagebox {
+	max-width: 100%;
+}
 
+
+.mycontainerpiste {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
 }	
 
 .customcontainer {
@@ -2481,6 +2512,7 @@ input, select, textarea {
 .customelement {
 	margin: auto;
 }
+
 
 
 .mycustomcontainer {
@@ -2498,6 +2530,7 @@ input, select, textarea {
 	height: 50%
 }
 
+
 .imgmontagne {
 	border-radius: 7%;
 	display: block; 
@@ -2508,3 +2541,108 @@ input, select, textarea {
 	margin-bottom: -2em;
 
 }
+
+/* espacement */
+
+table {
+  table-layout: fixed;
+  width: 80%;
+  border-collapse: collapse;
+  border: 3px solid black;
+  margin: auto;
+  background-color: #000000;
+}
+
+thead th:nth-child(1) {
+  width: 20%;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 20%;
+}
+
+thead th:nth-child(4) {
+  width: 20%;
+}
+
+thead th:nth-child(5) {
+  width: 20%;
+}
+
+
+td {
+  font: 
+	"Open Sans",
+  	sans-serif;
+  padding: 10px;
+  border: 1px solid black;
+  text-align: center;
+  color: black;
+  text-shadow: none;
+}
+
+th {
+  font: 
+	"Open Sans",
+  	sans-serif;
+  padding: 10px;
+  border: 1px solid black;
+  text-align: center;
+  color: white;
+  text-shadow: none;
+}
+
+/* Alternance de couleur */
+
+tbody tr:nth-child(odd) {
+  background-color: #A9A4A3;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #D9D9D9;
+}
+
+td.free {
+  background-color: #509C14;
+}
+
+td.full {
+  background-color: #DF1313;
+}
+
+.widgetbooking {
+	margin: auto;
+	margin-top: 3em;
+	margin-bottom: -4em;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.widgetbookingtable {
+	margin: auto;
+	margin-top: 3em;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.availability {
+	margin-top: -2em;
+	margin-bottom: 1em;
+}
+
+.imageslogement {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+
+.imglogement {
+	margin-bottom: 2em;
+}
+
+
