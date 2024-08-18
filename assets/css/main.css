@@ -2564,15 +2564,15 @@ table {
 }
 
 thead th:nth-child(1) {
-  width: 24%;
+  width: 22%;
 }
 
 thead th:nth-child(2) {
-  width: 24%;
+  width: 22%;
 }
 
 thead th:nth-child(3) {
-  width: 12%;
+  width: 16%;
 }
 
 thead th:nth-child(4) {
