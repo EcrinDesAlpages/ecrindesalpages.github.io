@@ -1,6 +1,6 @@
 ZeroFour by HTML5 UP
 html5up.net | @ajlkn
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+Free for personal and commercial use under the CCA 3.0 license (html5up.net/license).
 
 
 A responsive general purpose site template design named as such because it's the fourth
