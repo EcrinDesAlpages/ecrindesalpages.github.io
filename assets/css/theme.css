@@ -1,0 +1,1368 @@
+/* ==========================================================================
+   Ecrin des Alpages — theme.css (v2 "Nuit alpine")
+   Habillage bleu-nuit / noir / blanc, par-dessus la base ZeroFour (main.css).
+   Charger APRES assets/css/main.css sur chaque page.
+   ========================================================================== */
+
+:root {
+	--edg-black:      #0b1017;
+	--edg-navy:       #0f1b2d;
+	--edg-navy-mid:   #16273e;
+	--edg-blue:       #3d6f96;
+	--edg-blue-light: #6fa1c4;
+	--edg-ice:        #dce8ef;
+	--edg-white:      #ffffff;
+	--edg-offwhite:   #f4f7f9;
+	--edg-text:       #16202b;
+	--edg-muted:      #5a6b7a;
+	--edg-free:       #3f7d4a;
+	--edg-full:       #a8433a;
+	--edg-radius:     10px;
+	--edg-shadow:     0 10px 26px rgba(11, 16, 23, 0.10);
+}
+
+/* ---------- Base ---------- */
+
+body, input, textarea, select {
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+	color: var(--edg-text);
+}
+
+body {
+	background-color: var(--edg-offwhite);
+}
+
+h1, h2, h3, h4, h5, #logo, .mymajor h2, .mymymajor {
+	font-family: 'Georgia', 'Times New Roman', serif;
+	color: var(--edg-navy);
+	letter-spacing: 0.01em;
+}
+
+a {
+	color: var(--edg-blue);
+}
+
+a:hover {
+	color: var(--edg-navy);
+}
+
+strong {
+	color: var(--edg-navy);
+}
+
+/* Correction générale : éviter le texte collé aux bords des blocs */
+
+.box, section.box, #sidebar section, #content article {
+	padding: 1.9em 2.1em;
+	background: var(--edg-white);
+	border-radius: var(--edg-radius);
+	box-shadow: var(--edg-shadow);
+}
+
+.box.spotlight, .box.article-list, .box.excerpt, .box.feature1 {
+	padding: 1.9em 2.1em;
+}
+
+.box.excerpt {
+	padding: 1.6em 1.8em;
+}
+
+.container.box.feature1 {
+	padding: 2.4em 2.2em;
+}
+
+/* ---------- Header / Nav ---------- */
+
+#header-wrapper {
+	background: linear-gradient(180deg, var(--edg-black) 0%, var(--edg-navy) 100%);
+	border-bottom: 2px solid var(--edg-blue);
+	box-shadow: 0 2px 14px rgba(0,0,0,0.25);
+}
+
+body.homepage #header-wrapper {
+	background: linear-gradient(180deg, var(--edg-black) 0%, var(--edg-navy) 100%);
+}
+
+#header .inner {
+	align-items: center;
+}
+
+#header h1, #header #logo, #header #logo a {
+	color: var(--edg-white) !important;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+}
+
+#header h1 {
+	top: 50%;
+	margin-top: 0;
+	transform: translateY(-50%);
+}
+
+.edg-logo-img {
+	height: 42px;
+	width: 42px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-right: 0.65em;
+	border: 2px solid var(--edg-blue-light);
+}
+
+#nav > ul > li > a, #nav > ul > li > span {
+	color: var(--edg-ice);
+	border: none;
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: 0.78em;
+	letter-spacing: 0.09em;
+}
+
+#nav > ul > li.current_page_item > a,
+#nav > ul > li.active > a,
+#nav > ul > li > a:hover {
+	color: var(--edg-blue-light) !important;
+}
+
+#nav > ul > li.edg-lang-item > a {
+	color: var(--edg-blue-light);
+}
+
+.edg-flag {
+	width: 18px;
+	height: 13px;
+	border-radius: 2px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 0.45em;
+	margin-bottom: 0.15em;
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+#nav > ul > li.edg-lang-item > a:hover {
+	color: var(--edg-white) !important;
+}
+
+/* Entre le seuil du menu mobile (980px) et un écran large, le logo texte
+   et les liens de navigation sont tous les deux positionnés en absolute
+   (héritage du template) et finissent par se chevaucher quand la fenêtre
+   se rétrécit. On libère de la place en masquant le texte du logo (le
+   rond reste visible) et en resserrant un peu la nav. Seuil recalculé
+   après la suppression de l'onglet Réservation, puis relevé de nouveau
+   (1040 -> 1100px) après l'ajout du drapeau dans le lien de langue, qui
+   élargit la nav et avançait le moment où elle chevauchait le texte du
+   logo. */
+@media screen and (max-width: 1100px) {
+	#header h1 a {
+		font-size: 0;
+	}
+	#header h1 {
+		left: 1em;
+	}
+	#nav {
+		right: 1em;
+	}
+	#nav > ul > li {
+		padding: 0 0.45em;
+	}
+	#nav > ul > li > a, #nav > ul > li > span {
+		font-size: 0.8em;
+		letter-spacing: 0.045em;
+		padding: 0.5em 0.55em;
+	}
+}
+
+#titleBar {
+	background: var(--edg-navy);
+}
+
+/* Le titre affiché dans la barre mobile est un clone JS de #logo (image
+   ronde + texte). L'image (42px + bordure) dépasse de la hauteur de la
+   barre (44px) et se calait en bas (vertical-align par défaut) : on centre
+   proprement avec flex et on réduit l'image dans ce contexte précis. Le
+   clone reproduit aussi le <a> qui enveloppe l'image et le texte : c'est
+   LUI qu'il faut passer en flex, sinon l'image et le texte restent alignés
+   sur la ligne de base par défaut à l'intérieur de ce lien. */
+#titleBar .title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 44px;
+	line-height: normal;
+}
+
+#titleBar .title a {
+	display: flex;
+	align-items: center;
+	color: inherit;
+	text-decoration: none;
+}
+
+#titleBar .title .edg-logo-img {
+	height: 24px;
+	width: 24px;
+	margin-right: 0.5em;
+	border-width: 1px;
+}
+
+#titleBar .toggle:before {
+	color: var(--edg-ice);
+}
+
+#navPanel {
+	background: var(--edg-navy);
+}
+
+#navPanel .link {
+	color: var(--edg-ice);
+	border-top-color: rgba(255,255,255,0.1);
+}
+
+/* Le panneau mobile est reconstruit en JS par le template (navList()) à
+   partir du seul texte des liens : le <svg> du drapeau inline est donc
+   perdu. On le restitue en CSS via un ::before ciblé sur le lien de langue,
+   repérable de façon unique par son href (pages FR -> en/..., pages EN -> ../...). */
+#navPanel .link[href^="en/"]::before,
+#navPanel .link[href^="../"]::before {
+	content: "";
+	display: inline-block;
+	width: 18px;
+	height: 13px;
+	margin-right: 0.5em;
+	vertical-align: middle;
+	border-radius: 2px;
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+	background-size: cover;
+	background-position: center;
+}
+
+#navPanel .link[href^="en/"]::before {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 36'%3E%3Crect width='60' height='36' fill='%2300247d'/%3E%3Cpath d='M0%2C0 L60%2C36 M60%2C0 L0%2C36' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M0%2C0 L60%2C36 M60%2C0 L0%2C36' stroke='%23cf142b' stroke-width='2'/%3E%3Cpath d='M30%2C0 V36 M0%2C18 H60' stroke='%23fff' stroke-width='10'/%3E%3Cpath d='M30%2C0 V36 M0%2C18 H60' stroke='%23cf142b' stroke-width='6'/%3E%3C/svg%3E");
+}
+
+#navPanel .link[href^="../"]::before {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='1' height='2' x='0' fill='%230055A4'/%3E%3Crect width='1' height='2' x='1' fill='%23FFFFFF'/%3E%3Crect width='1' height='2' x='2' fill='%23EF4135'/%3E%3C/svg%3E");
+}
+
+/* ---------- Banner ---------- */
+
+#banner {
+	background: linear-gradient(rgba(11, 16, 23, 0.2), rgba(15, 27, 45, 0.26)), url('../../images/residence.jpeg') center/cover no-repeat;
+	padding: 2.4em 1em 9em;
+	min-height: 92vh;
+	width: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+#banner h2 {
+	color: var(--edg-white);
+	font-family: 'Georgia', 'Times New Roman', serif;
+	text-shadow: 0 2px 12px rgba(0,0,0,0.55);
+	font-size: 1.65em;
+	line-height: 1.35;
+	margin: 0;
+	background: none;
+	border: none;
+	padding: 0;
+}
+
+#banner h2:before, #banner h2:after {
+	display: none;
+	content: none;
+}
+
+#banner p, #banner h2 strong {
+	color: var(--edg-ice);
+}
+
+#banner p {
+	font-size: 1em;
+	text-transform: none;
+	line-height: 1.4;
+	margin: 0;
+}
+
+@media (max-width: 480px) {
+	#banner { padding: 1.8em 1em 6em; min-height: 72vh; }
+	#banner h2 { font-size: 1.35em; }
+}
+
+/* main.css masque les <br> du bandeau à partir de 980px (règle pensée pour
+   un titre sur une seule ligne) ; on les restaure pour garder le retour à
+   la ligne voulu entre les deux lignes du titre. */
+@media screen and (max-width: 980px) {
+	#banner br {
+		display: block !important;
+	}
+}
+
+/* ---------- Lightbox (agrandissement photos) ---------- */
+
+.edg-lightbox-target {
+	cursor: zoom-in;
+}
+
+.edg-lightbox {
+	position: fixed;
+	inset: 0;
+	background: rgba(11, 16, 23, 0.92);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 3em 1.5em;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.25s ease, visibility 0.25s ease;
+	z-index: 20000;
+}
+
+.edg-lightbox.is-visible {
+	opacity: 1;
+	visibility: visible;
+}
+
+.edg-lightbox-img {
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 6px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.edg-lightbox-close {
+	position: absolute;
+	top: 0.8em;
+	right: 1em;
+	background: none;
+	border: none;
+	color: var(--edg-white);
+	font-size: 2.4em;
+	line-height: 1;
+	cursor: pointer;
+	padding: 0.15em 0.4em;
+	opacity: 0.85;
+	z-index: 1;
+}
+
+.edg-lightbox-close:hover {
+	opacity: 1;
+}
+
+.edg-lightbox-nav {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(255, 255, 255, 0.12);
+	color: var(--edg-white);
+	border: none;
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 1.5em;
+	line-height: 1;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.edg-lightbox-nav:hover {
+	background: var(--edg-blue);
+}
+
+.edg-lightbox-nav.prev { left: 1em; }
+.edg-lightbox-nav.next { right: 1em; }
+
+@media (max-width: 600px) {
+	.edg-lightbox-nav { width: 40px; height: 40px; font-size: 1.25em; }
+	.edg-lightbox-nav.prev { left: 0.4em; }
+	.edg-lightbox-nav.next { right: 0.4em; }
+}
+
+body.edg-lightbox-open {
+	overflow: hidden;
+}
+
+/* ---------- Boutons ---------- */
+
+.button {
+	background: var(--edg-navy);
+	color: var(--edg-white) !important;
+	border-radius: 4px;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	border: none;
+	transition: background 0.25s ease, transform 0.15s ease;
+}
+
+.button:hover {
+	background: var(--edg-blue);
+	color: var(--edg-white) !important;
+	transform: translateY(-1px);
+}
+
+.button:active {
+	background: var(--edg-black);
+}
+
+.button.alt {
+	background: transparent;
+	border: 2px solid var(--edg-navy);
+	color: var(--edg-navy) !important;
+}
+
+.button.alt:hover {
+	background: var(--edg-navy);
+	color: var(--edg-white) !important;
+}
+
+.button.gold {
+	background: var(--edg-blue);
+	color: var(--edg-white) !important;
+}
+
+.button.gold:hover {
+	background: var(--edg-navy);
+}
+
+.button.small {
+	padding: 0.45em 1em;
+	font-size: 0.78em;
+}
+
+/* ---------- Sections / boxes ---------- */
+
+.wrapper.style1 { background: var(--edg-offwhite); }
+.wrapper.style2 { background: var(--edg-ice); }
+.wrapper.style3 { background: var(--edg-offwhite); }
+
+/* ---------- Footer ---------- */
+
+#footer-wrapper {
+	background: var(--edg-black);
+}
+
+#footer, #footer h1, #footer h2, #footer p, #footer label {
+	color: var(--edg-ice);
+}
+
+#footer {
+	text-align: center;
+	text-shadow: none;
+}
+
+#footer .contactez-nous {
+	max-width: 560px;
+	margin: 0 auto;
+}
+
+#footer input, #footer textarea {
+	border-radius: 6px;
+}
+
+.edg-footer-logo {
+	height: 56px;
+	width: 56px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-bottom: 0.8em;
+	border: 2px solid var(--edg-blue-light);
+}
+
+/* ==========================================================================
+   Points forts page d'accueil
+   ========================================================================== */
+
+.edg-highlights {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1.4em;
+	margin: 2em 0;
+}
+
+.edg-highlight-card {
+	background: var(--edg-white);
+	border-radius: var(--edg-radius);
+	box-shadow: var(--edg-shadow);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	text-decoration: none;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edg-highlight-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 16px 34px rgba(11,16,23,0.20);
+}
+
+.edg-highlight-card .edg-thumb {
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+}
+
+.edg-highlight-card .edg-thumb img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.edg-highlight-card .edg-thumb.edg-thumb-contain {
+	background: var(--edg-offwhite);
+}
+
+.edg-highlight-card .edg-thumb.edg-thumb-contain img {
+	object-fit: contain;
+}
+
+.edg-highlight-card .edg-card-body {
+	padding: 1.1em 1.3em;
+}
+
+.edg-highlight-card h3 {
+	margin: 0 0 0.35em 0;
+	color: var(--edg-navy);
+	font-size: 1.05em;
+}
+
+.edg-highlight-card p {
+	color: var(--edg-muted);
+	font-size: 0.9em;
+	margin: 0;
+}
+
+@media (max-width: 980px) {
+	.edg-highlights { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 736px) {
+	.edg-highlights { grid-template-columns: 1fr; }
+}
+
+/* ---------- CTA réservation directe ---------- */
+
+.edg-booking-cta {
+	background: var(--edg-navy);
+	border-radius: var(--edg-radius);
+	box-shadow: var(--edg-shadow);
+	padding: 2.3em 2em;
+	text-align: center;
+	margin: 2em 0;
+	color: var(--edg-ice);
+}
+
+.edg-booking-cta h2 {
+	color: var(--edg-white);
+}
+
+.edg-booking-cta p {
+	max-width: 640px;
+	margin: 0 auto 1.4em auto;
+	color: var(--edg-ice);
+}
+
+.edg-booking-cta .button.alt {
+	border-color: var(--edg-white);
+	color: var(--edg-white) !important;
+}
+
+.edg-booking-cta .button.alt:hover {
+	background: var(--edg-white);
+	color: var(--edg-navy) !important;
+}
+
+.edg-booking-links {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.75em;
+}
+
+/* ==========================================================================
+   Vidéo
+   ========================================================================== */
+
+.edg-video-frame {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	border-radius: var(--edg-radius);
+	overflow: hidden;
+	box-shadow: var(--edg-shadow);
+	background: var(--edg-navy);
+}
+
+.edg-map-frame {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	border-radius: var(--edg-radius);
+	overflow: hidden;
+	box-shadow: var(--edg-shadow);
+	background: var(--edg-ice);
+	margin-top: 1em;
+}
+
+.edg-map-frame iframe {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.edg-video-frame iframe {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.edg-video-placeholder {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.8em;
+	background: linear-gradient(rgba(11,16,23,0.55), rgba(15,27,45,0.75)), url('../../images/station.jpeg') center/cover no-repeat;
+	color: var(--edg-white);
+	text-align: center;
+	padding: 1em;
+}
+
+.edg-video-placeholder .edg-play-icon {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	background: rgba(255,255,255,0.15);
+	border: 2px solid var(--edg-white);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.4em;
+}
+
+/* ==========================================================================
+   Carrousel photo (réutilisable)
+   ========================================================================== */
+
+.edg-carousel-wrap {
+	position: relative;
+	margin: 1.5em 0;
+}
+
+.edg-carousel {
+	display: flex;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	gap: 0.9em;
+	scroll-behavior: smooth;
+	-webkit-overflow-scrolling: touch;
+	border-radius: var(--edg-radius);
+	padding-bottom: 0.4em;
+}
+
+.edg-carousel::-webkit-scrollbar {
+	height: 6px;
+}
+.edg-carousel::-webkit-scrollbar-thumb {
+	background: var(--edg-blue-light);
+	border-radius: 999px;
+}
+
+.edg-carousel-slide {
+	flex: 0 0 auto;
+	width: 92%;
+	aspect-ratio: 16 / 10;
+	scroll-snap-align: start;
+	border-radius: var(--edg-radius);
+	overflow: hidden;
+	box-shadow: var(--edg-shadow);
+	background: var(--edg-offwhite);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.edg-carousel-slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	display: block;
+}
+
+@media (min-width: 600px) {
+	.edg-carousel-slide { width: 62%; }
+}
+
+@media (min-width: 980px) {
+	.edg-carousel-slide { width: 47%; }
+}
+
+.edg-carousel-btn {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: var(--edg-navy);
+	color: var(--edg-white);
+	border: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 1.1em;
+	line-height: 1;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+	z-index: 5;
+}
+
+.edg-carousel-btn:hover {
+	background: var(--edg-blue);
+}
+
+.edg-carousel-btn.prev { left: -6px; }
+.edg-carousel-btn.next { right: -6px; }
+
+@media (max-width: 736px) {
+	.edg-carousel-btn { display: none; }
+}
+
+/* ==========================================================================
+   Galerie photos
+   ========================================================================== */
+
+.edg-gallery {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 0.9em;
+	margin: 1.5em 0;
+}
+
+.edg-gallery figure {
+	margin: 0;
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+	border-radius: var(--edg-radius);
+	box-shadow: var(--edg-shadow);
+	background: var(--edg-offwhite);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.edg-gallery img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	display: block;
+	transition: transform 0.35s ease;
+}
+
+.edg-gallery figure:hover img {
+	transform: scale(1.04);
+}
+
+@media (max-width: 980px) {
+	.edg-gallery { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 736px) {
+	.edg-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+.edg-gallery.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.edg-gallery.cols-2 figure { aspect-ratio: 16 / 10; }
+@media (max-width: 736px) {
+	.edg-gallery.cols-2 { grid-template-columns: 1fr; }
+}
+
+.edg-view-photo {
+	max-width: 640px;
+	margin: 0 auto 1.5em auto;
+	border-radius: var(--edg-radius);
+	overflow: hidden;
+	box-shadow: var(--edg-shadow);
+}
+
+.edg-view-photo img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.edg-gallery-heading {
+	text-align: center;
+	margin: 2.4em 0 0.6em 0;
+	color: var(--edg-navy);
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-size: 0.95em;
+	border-bottom: 2px solid var(--edg-ice);
+	padding-bottom: 0.5em;
+}
+
+/* ---------- Fiche infos hébergement (icônes) ---------- */
+
+.mycontainer {
+	display: flex;
+	gap: 1em;
+	margin-bottom: 1em;
+	align-items: stretch;
+}
+
+.myitem {
+	background: var(--edg-ice);
+	border-radius: var(--edg-radius);
+	padding: 1em 1.2em;
+	flex: 1;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.myitem i {
+	color: var(--edg-blue);
+	font-size: 1.6em;
+	margin-bottom: 0.35em;
+}
+
+.myitem .mytitle {
+	font-weight: 700;
+	color: var(--edg-navy);
+}
+
+.myitem .mysubtitle {
+	font-size: 0.85em;
+	color: var(--edg-muted);
+}
+
+/* ==========================================================================
+   Mini-calendrier récapitulatif (page d'accueil)
+   ========================================================================== */
+
+.edg-minical {
+	background: var(--edg-white);
+	border-radius: var(--edg-radius);
+	box-shadow: var(--edg-shadow);
+	padding: 2em 2.1em;
+	margin: 2em 0;
+}
+
+.edg-minical-legend {
+	display: flex;
+	justify-content: center;
+	gap: 1.6em;
+	margin-bottom: 1.4em;
+	font-size: 0.85em;
+	color: var(--edg-muted);
+}
+
+.edg-minical-legend span {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45em;
+}
+
+.edg-dot {
+	width: 11px;
+	height: 11px;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.edg-dot.free { background: var(--edg-blue); }
+.edg-dot.full { background: var(--edg-full); }
+
+.edg-minical-month {
+	font-size: 0.78em;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--edg-navy);
+	margin: 1.1em 0 0.6em 0;
+	font-weight: 700;
+}
+
+.edg-minical-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+}
+
+.edg-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+	background: rgba(63, 125, 74, 0.09);
+	border: 1px solid rgba(63, 125, 74, 0.35);
+	color: var(--edg-navy);
+	border-radius: 14px;
+	padding: 0.5em 0.9em;
+	font-size: 0.8em;
+	text-decoration: none;
+	transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edg-chip-text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.35;
+}
+
+.edg-chip:hover {
+	background: var(--edg-navy);
+	border-color: var(--edg-navy);
+	color: var(--edg-white) !important;
+	box-shadow: 0 4px 12px rgba(11, 16, 23, 0.25);
+}
+
+.edg-chip:hover .edg-chip-date {
+	font-weight: 700;
+}
+
+.edg-chip:hover .edg-chip-price {
+	color: var(--edg-white) !important;
+	font-weight: 700;
+}
+
+.edg-chip:hover .edg-dot.free {
+	background: var(--edg-white);
+}
+
+.edg-chip.full {
+	background: rgba(168, 67, 58, 0.08);
+	border-color: rgba(168, 67, 58, 0.25);
+	color: var(--edg-muted);
+	cursor: default;
+}
+
+.edg-chip.full:hover {
+	background: rgba(168, 67, 58, 0.08);
+	color: var(--edg-muted) !important;
+}
+
+.edg-chip .edg-dot { width: 8px; height: 8px; }
+
+.edg-chip-price {
+	font-weight: 700;
+	color: var(--edg-navy);
+}
+
+.edg-chip.full .edg-chip-price {
+	color: var(--edg-muted);
+}
+
+.edg-minical-season {
+	margin: 2.2em 0 0.4em 0;
+	text-align: center;
+	font-size: 1.1em;
+	color: var(--edg-navy);
+}
+
+.edg-minical-season-note {
+	text-align: center;
+	font-size: 0.82em;
+	color: var(--edg-muted);
+	margin: -0.4em 0 1em 0;
+}
+
+.edg-minical-divider {
+	border: none;
+	border-top: 2px solid var(--edg-ice);
+	margin: 2em 0 0 0;
+}
+
+.edg-minical-columns {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 2.4em;
+	margin-top: 0.4em;
+}
+
+.edg-minical-col:first-child {
+	border-right: 2px solid var(--edg-ice);
+	padding-right: 2.4em;
+}
+
+@media (max-width: 780px) {
+	.edg-minical-columns {
+		grid-template-columns: 1fr;
+	}
+	.edg-minical-col:first-child {
+		border-right: none;
+		border-bottom: 2px solid var(--edg-ice);
+		padding-right: 0;
+		padding-bottom: 1.4em;
+		margin-right: 0;
+		margin-bottom: 1.4em;
+	}
+}
+
+/* ==========================================================================
+   Planning de réservation (cartes compactes)
+   ========================================================================== */
+
+.edg-planning-filters {
+	display: flex;
+	gap: 0.6em;
+	flex-wrap: wrap;
+	margin: 1.5em 0;
+}
+
+.edg-filter-btn {
+	background: var(--edg-ice);
+	border: 2px solid var(--edg-blue-light);
+	color: var(--edg-navy);
+	border-radius: 999px;
+	padding: 0.45em 1.2em;
+	font-weight: 600;
+	cursor: pointer;
+	font-size: 0.82em;
+	letter-spacing: 0.03em;
+	transition: background 0.2s ease, color 0.2s ease;
+}
+
+.edg-filter-btn.is-active,
+.edg-filter-btn:hover {
+	background: var(--edg-navy);
+	border-color: var(--edg-navy);
+	color: var(--edg-white);
+}
+
+.edg-planning-month {
+	margin: 1.8em 0 0.9em 0;
+	background: var(--edg-navy);
+	color: var(--edg-white);
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 0.85em;
+	letter-spacing: 0.14em;
+	padding: 0.5em 1.3em;
+	border-radius: 999px;
+	font-weight: 700;
+}
+
+/* ==========================================================================
+   Correction d'alignement : le composant .image du template ne définit pas
+   de largeur (seulement img { width:100% } sur un parent inline-block "auto"),
+   ce qui fait s'afficher les photos en pleine résolution et casse
+   l'alignement des blocs (Station, Informations). On fige les tailles.
+   ========================================================================== */
+
+.image, .image.featured, .image.centered {
+	display: block;
+	width: 100%;
+}
+
+.image img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.box.excerpt {
+	display: flex;
+	align-items: flex-start;
+	gap: 1.3em;
+}
+
+.box.excerpt .image.left {
+	float: none;
+	margin: 0;
+	flex: 0 0 170px;
+	width: 170px;
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+	border-radius: 8px;
+}
+
+.box.excerpt .image.left img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.box.excerpt > div {
+	flex: 1;
+	min-width: 0;
+}
+
+.box.excerpt header {
+	margin: 0 0 0.4em 0;
+	text-align: left;
+}
+
+@media (max-width: 980px) {
+	.box.excerpt {
+		flex-direction: column;
+	}
+	.box.excerpt .image.left {
+		width: 100%;
+		flex-basis: auto;
+		aspect-ratio: 16 / 10;
+		background: var(--edg-offwhite);
+	}
+	.box.excerpt .image.left img {
+		object-fit: contain;
+	}
+}
+
+/* Ligne "Où stationner" et autres lignes image + texte : alignement en haut */
+.box.spotlight .row {
+	align-items: flex-start;
+}
+
+.box.spotlight .row .image.featured {
+	margin-bottom: 1em;
+}
+
+/* ==========================================================================
+   Conciergerie / offres partenaires (page Informations)
+   ========================================================================== */
+
+.edg-concierge-intro {
+	display: flex;
+	align-items: center;
+	gap: 1.2em;
+	margin-bottom: 1.3em;
+}
+
+.edg-concierge-logo {
+	flex: 0 0 120px;
+	width: 120px;
+	height: 120px;
+	border-radius: 10px;
+	object-fit: contain;
+	background: var(--edg-offwhite);
+	padding: 6px;
+	box-shadow: var(--edg-shadow);
+}
+
+@media (max-width: 480px) {
+	.edg-concierge-intro {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.edg-concierge-logo {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 10;
+	}
+}
+
+.edg-concierge-intro p {
+	margin: 0;
+}
+
+.edg-simple-list {
+	list-style: none;
+	margin: 0 0 1.4em 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 0.5em 1em;
+}
+
+.edg-simple-list li {
+	padding-left: 1.3em;
+	position: relative;
+	color: var(--edg-text);
+}
+
+.edg-simple-list li:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0.55em;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--edg-blue);
+}
+
+.edg-partner-card {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	padding: 1em;
+	background: var(--edg-offwhite);
+	border-radius: var(--edg-radius);
+	margin-bottom: 1em;
+}
+
+.edg-partner-card:last-child {
+	margin-bottom: 0;
+}
+
+.edg-partner-logo {
+	flex: 0 0 84px;
+	width: 84px;
+	height: 84px;
+	border-radius: 8px;
+	background: var(--edg-white);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	box-shadow: var(--edg-shadow);
+}
+
+.edg-partner-logo img {
+	max-width: 78%;
+	max-height: 78%;
+	object-fit: contain;
+}
+
+.edg-partner-text strong {
+	display: block;
+	color: var(--edg-navy);
+	font-size: 0.98em;
+	margin-bottom: 0.2em;
+}
+
+.edg-partner-text span {
+	display: block;
+	color: var(--edg-muted);
+	font-size: 0.88em;
+}
+
+.edg-link-card-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-items: start;
+	gap: 1.4em;
+	margin-top: 1.3em;
+}
+
+.edg-link-card {
+	background: var(--edg-white);
+	border-radius: var(--edg-radius);
+	box-shadow: var(--edg-shadow);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.edg-link-card-thumb {
+	display: block;
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+}
+
+.edg-link-card-thumb img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.3s ease;
+}
+
+.edg-link-card:hover .edg-link-card-thumb img {
+	transform: scale(1.05);
+}
+
+.edg-link-card-body {
+	padding: 1.1em 1.3em;
+}
+
+.edg-link-card-body h3 {
+	margin: 0 0 0.4em 0;
+	font-size: 1.02em;
+	line-height: 1.3em;
+}
+
+.edg-link-card-body h3 a {
+	color: var(--edg-navy);
+}
+
+.edg-link-card-body p {
+	font-size: 0.88em;
+	color: var(--edg-muted);
+	margin: 0 0 0.4em 0;
+}
+
+.edg-link-card-body p:last-child {
+	margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+	.edg-link-card-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ---------- Divers ---------- */
+
+.edg-section-intro {
+	max-width: 780px;
+	margin: 0 auto 1.5em auto;
+	text-align: center;
+}
+
+.edg-paradiski-badge {
+	display: block;
+	width: 140px;
+	height: auto;
+	margin: 0.8em auto 0 auto;
+}
+
+.edg-badge {
+	display: inline-block;
+	background: var(--edg-ice);
+	color: var(--edg-navy);
+	border: 1px solid var(--edg-blue-light);
+	border-radius: 999px;
+	padding: 0.5em 1.3em;
+	font-size: 0.95em;
+	font-weight: 700;
+	text-transform: none;
+	letter-spacing: 0.03em;
+	margin-bottom: 0.9em;
+}
+
+.edg-note {
+	font-size: 0.85em;
+	color: var(--edg-muted);
+	margin: 0.6em auto 0 auto;
+}
+
+.edg-plain-text {
+	max-width: 780px;
+	margin: 0 auto 2em auto;
+}
+
+.edg-plain-text h2 {
+	text-align: center;
+}
+
+.edg-conditions-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.edg-conditions-list li {
+	padding: 0.9em 0 0.9em 1.6em;
+	position: relative;
+	line-height: 1.6;
+}
+
+.edg-conditions-list li:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 1.35em;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--edg-blue);
+}
