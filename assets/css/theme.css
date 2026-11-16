@@ -613,6 +613,14 @@ body.edg-lightbox-open {
 	border: 0;
 }
 
+/* Vidéo verticale (YouTube Short) : cadre 9:16 centré */
+.edg-video-frame.edg-video-short {
+	aspect-ratio: 9 / 16;
+	max-width: 360px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .edg-video-frame iframe {
 	position: absolute;
 	inset: 0;
